@@ -42,6 +42,19 @@ app.get("/cars", (req, res) => {
         { nome: "Civic EXL", modelo: "EXL", marca: "Honda", ano: 2020, preco: 125000 }])
 });
 
+app.post("/cars", (req, res) => {
+    const { nome, modelo, marca, ano, preco } = req.body;
+
+    if(!nome || !marca || !preco) {
+        return res.status(400).json({
+            error: "Campos (nomes, marca e preco), são obrigatorios!!!"
+        });
+    }
+    res.json({
+        ensagem: "Carro adicionado com sucesso!!!",
+        carro: req.body
+    });
+});
 const PORT = 3003
 
 app.listen(PORT, () => console.log(`A api esta roando em: http:localhost:${PORT}`));

@@ -6,7 +6,7 @@ class SubjectApi {
             return cy.api({ method, url });
         }
     }
-  }
+}
 
 describe("Method DELETE", () => {
     it("Should delete a car off the list", () => {
@@ -25,7 +25,7 @@ describe("Method DELETE", () => {
                 expect(car.marca).to.be.a("string")
                 expect(car.ano).to.be.a("number")
                 expect(car.preco).to.be.a("number")
-            }); 
+            });
             cy.wrap(res.body).should('have.property', "mensagem", 'Lancer Evolution X deletado com sucesso!!!');
         })
     });

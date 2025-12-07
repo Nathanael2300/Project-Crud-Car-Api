@@ -33,7 +33,7 @@ describe("Method GET", () => {
     const api = new SubjectApi()
     const requestGET = api.requestHTTP({
       method: "GET",
-      url: "/1"
+      url: "/2"
     });
     return requestGET().then((res) => {
       for (let i = 0; i < res.body.length; i++) {

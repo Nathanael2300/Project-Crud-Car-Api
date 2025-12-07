@@ -64,16 +64,18 @@ app.post("/cars", (req, res) => {
 
 app.put("/cars", (req, res) => {
     const { nome, modelo, marca, ano, preco } = req.body;
-    let mensagem = ""
 
-    if(nome) { mensagem += "Nome do carro alterado com sucesso!!!" }
-    if(modelo) { mensagem += "Modelo do carro alterado com sucesso!!!" }
-    if(marca) { mensagem += "Marca do carro alterado com sucesso!!!" }
-    if(ano) { mensagem += "Ano do carro alterado com sucesso!!!" }
-    if(preco) { mensagem += "Preco do carro alterado com sucesso!!!" }
-    res.json({ mensagem: mensagem.trim() });
-    
+    const mensagens = [];
+
+    if (nome) mensagens.push("Nome do carro alterado com sucesso!!!");
+    if (modelo) mensagens.push("Modelo do carro alterado com sucesso!!!");
+    if (marca) mensagens.push("Marca do carro alterado com sucesso!!!");
+    if (ano) mensagens.push("Ano do carro alterado com sucesso!!!");
+    if (preco) mensagens.push("Preco do carro alterado com sucesso!!!");
+
+    res.json({ mensagem: mensagens.join("-"), carro: req.body });
 });
+
 
 app.delete("/cars/:id", (req, res) => {
     const { id } = req.params;

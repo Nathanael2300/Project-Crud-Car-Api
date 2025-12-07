@@ -26,6 +26,7 @@ describe("Method GET", () => {
         cy.wrap(car.ano).should("be.a", "number");
         cy.wrap(car.preco).should("be.a", "number");
       });
+      cy.log(`Quantidade De Carros: ${res.body.length}`);
     });
   });
 

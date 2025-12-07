@@ -1,4 +1,5 @@
 const { faker } = require('@faker-js/faker');
+import 'cypress-mochawesome-reporter/register';
 
 class SubjectApi {
     requestHTTP = ({ method, url, body }) => {

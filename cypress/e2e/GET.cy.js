@@ -1,3 +1,5 @@
+import 'cypress-mochawesome-reporter/register';
+
 class SubjectApi {
   requestHTTP = ({ method, url }) => {
       return () => {

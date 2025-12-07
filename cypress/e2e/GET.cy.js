@@ -8,7 +8,7 @@ class SubjectApi {
 
 
 describe("Method GET", () => {
-    it("Should get all cars of the list", () => {
+    it("Should get all cars off the list", () => {
       const api = new SubjectApi()
       const requestGET = api.requestHTTP({
         method: "GET",

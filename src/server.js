@@ -45,6 +45,9 @@ app.get("/cars", (req, res) => {
 app.get("/cars/:id", (req, res) => {
         const { id } = req.params
         const findIdCar = list.find(find => find.id == id)
+        if(!findIdCar) {
+            return res.status(404).json({ mensagem: "carro não encontrado"})
+        }
         res.json([findIdCar])
 });
 

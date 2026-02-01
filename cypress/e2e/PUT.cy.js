@@ -2,11 +2,9 @@ const { faker } = require('@faker-js/faker');
 import 'cypress-mochawesome-reporter/register';
 
 class SubjectApi {
-    requestHTTP = ({ method, url, body }) => {
-        return () => {
-            return cy.api({ method, url, body });
-        }
-    }
+  requestHTTP = ({ method, url, body }) => {
+    return cy.api({ method, url, body });
+  };
 }
 
 describe("Method PUT", () => {

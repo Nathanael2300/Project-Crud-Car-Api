@@ -1,12 +1,11 @@
 import 'cypress-mochawesome-reporter/register';
 
 class SubjectApi {
-    requestHTTP = ({ method, url, failOnStatusCode }) => {
-        return () => {
-            return cy.api({ method, url, failOnStatusCode });
-        }
-    }
+  requestHTTP = ({ method, url, failOnStatusCode }) => {
+    return cy.api({ method, url, failOnStatusCode });
+  };
 }
+
 
 describe("Method DELETE", () => {
     it("Should delete a car off the list", () => {

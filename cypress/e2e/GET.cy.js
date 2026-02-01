@@ -2,12 +2,9 @@ import 'cypress-mochawesome-reporter/register';
 
 class SubjectApi {
   requestHTTP = ({ method, url }) => {
-    return () => {
-      return cy.api({ method, url });
-    }
-  }
+    return cy.api({ method, url });
+  };
 }
-
 
 describe("Method GET", () => {
   it("Should get all cars off the list", () => {

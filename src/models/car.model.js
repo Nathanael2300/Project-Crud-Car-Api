@@ -1,15 +1,4 @@
-const express = require("express");
-const cors = require("cors");
-const morgan = require("morgan");
-const helmet = require("helmet");
-const app = express();
-
-app.use(express.json());
-app.use(cors());
-app.use(morgan("dev"));
-app.use(helmet());
-
-let list = [
+let cars = [
   {
     id: 1,
     nome: "Lancer Evolution X",
@@ -228,64 +217,71 @@ let list = [
   },
 ];
 
-app.get("/cars", (req, res) => {
-  res.json(list);
-});
-
-app.get("/cars/:id", (req, res) => {
-  const { id } = req.params;
-  const findIdCar = list.find((find) => find.id == id);
-  if (!findIdCar) {
-    return res.status(404).json({ mensagem: "carro não encontrado" });
-  }
-  res.json([findIdCar]);
-});
-
-app.post("/cars", (req, res) => {
-  const { nome, modelo, marca, ano, preco } = req.body;
-
-  if (!nome || !modelo || !marca || !ano || !preco) {
-    return res.status(400).json({
-      error: "Campos (nomes, modelo,marca, ano e preco), são obrigatorios!!!",
-    });
-  }
-  res.json({
-    mensagem: "Carro adicionado com sucesso!!!",
-    carro: req.body,
+const getAll = async function () {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      return resolve(cars);
+    }, 300);
   });
-});
+};
 
-app.put("/cars", (req, res) => {
-  const { nome, modelo, marca, ano, preco } = req.body;
-
-  const mensagens = [];
-
-  if (nome) mensagens.push("Nome do carro alterado com sucesso!!!");
-  if (modelo) mensagens.push("Modelo do carro alterado com sucesso!!!");
-  if (marca) mensagens.push("Marca do carro alterado com sucesso!!!");
-  if (ano) mensagens.push("Ano do carro alterado com sucesso!!!");
-  if (preco) mensagens.push("Preco do carro alterado com sucesso!!!");
-
-  res.json({ mensagem: mensagens.join("-"), carro: req.body });
-});
-
-app.delete("/cars/:id", (req, res) => {
-  const { id } = req.params;
-  const index = list.findIndex((find) => find.id == id);
-
-  const carroDeletado = list[index];
-
-  list.splice(index, 1);
-  if (index === -1) {
-    return res.status(404).json({ mensagem: "Carro não encontrado" });
-  }
-  res.json({
-    carroDeletado: carroDeletado,
-    mensagem: `${carroDeletado.nome} deletado com sucesso!!!`,
+const getById = async function (id) {
+  const car = cars.find((listId) => listId.id === id);
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      if (car) {
+        return resolve(car);
+      }
+      return resolve(null);
+    }, 300);
   });
-});
-const PORT = 3003;
+};
 
-app.listen(PORT, () =>
-  console.log(`A api esta roando em: http:localhost:${PORT}`),
-);
+const create = async function (carData) {
+  const newId = cars.length + 1;
+
+  const newCar = {
+    id: newId,
+    ...carData,
+  };
+
+  cars.push(newCar);
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      return resolve(newCar);
+    }, 300);
+  });
+};
+
+const update = async function (id, updateData) {
+  const index = cars.findIndex((carsId) => carsId.id === id);
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      if (index === -1) {
+        return resolve(null);
+      }
+      return resolve(
+        (cars[index] = {
+          ...cars[index],
+          ...updateData,
+        }),
+      );
+    }, 300);
+  });
+};
+
+const remove = async function (id) {
+  const index = cars.findIndex((carsId) => carsId.id === id);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (index === -1) {
+        return resolve(null);
+      }
+      const deletedCar = cars.splice(index, 1)[0];
+      return resolve(deletedCar);
+    }, 300);
+  });
+};
+
+module.exports = { getAll, getById, create, update, remove };

@@ -7,14 +7,14 @@ module.exports = defineConfig({
     overwrite: false,
     html: true,
     json: true,
-    embeddedScreenshots: true, 
-    inlineAssets: true         
+    embeddedScreenshots: true,
+    inlineAssets: true,
   },
   e2e: {
     setupNodeEvents(on, config) {
       require("cypress-mochawesome-reporter/plugin")(on);
       return config;
     },
-    baseUrl: "http://localhost:3003/cars"
+    baseUrl: "http://localhost:3003",
   },
 });

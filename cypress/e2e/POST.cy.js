@@ -1,3 +1,4 @@
+import "cypress-mochawesome-reporter/register";
 const CarsApi = require("../support/api/carsApi");
 const { faker } = require("@faker-js/faker");
 
@@ -48,8 +49,8 @@ describe("POST /cars", () => {
           ano: Car.ano,
           preco: Car.preco,
         };
-        expect(res.status).to.eql(200);
-        expect(res.body).to.deep.include(expectedValue);
+        expect(getByIdres.status).to.eql(200);
+        expect(getByIdres.body).to.deep.include(expectedValue);
       });
     });
   });

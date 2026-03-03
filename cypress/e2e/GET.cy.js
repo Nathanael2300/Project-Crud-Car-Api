@@ -1,47 +1,40 @@
-import 'cypress-mochawesome-reporter/register';
+const CarsApi = require("../support/api/carsApi");
 
-class SubjectApi {
-  requestHTTP = ({ method, url }) => {
-    return cy.api({ method, url });
-  };
-}
+describe("GET /cars", () => {
+  it("Should return a list of cars", () => {
+    const api = new CarsApi();
 
-describe("Method GET", () => {
-  it("Should get all cars off the list", () => {
-    const api = new SubjectApi()
-    const requestGET = api.requestHTTP({
-      method: "GET",
-      url: "/"
-    });
-    return requestGET().then((res) => {
-      res.body.forEach((car) => {
-        cy.wrap(res.status).should("eq", 200);
-        cy.wrap(car.id).should("be.a", "number");
-        cy.wrap(car.nome).should("be.a", "string");
-        cy.wrap(car.modelo).should("be.a", "string");
-        cy.wrap(car.marca).should("be.a", "string");
-        cy.wrap(car.ano).should("be.a", "number");
-        cy.wrap(car.preco).should("be.a", "number");
-      });
-      cy.log(`Quantidade De Carros: ${res.body.length}`);
+    return api.getAll().then((getres) => {
+      expect(getres.status).to.eql(200);
+      expect(getres.body).to.be.an("array");
+      for (const car of getres.body) {
+        expect(car.id).to.be.a("number");
+        expect(car.nome).to.be.a("string");
+        expect(car.modelo).to.be.a("string");
+        expect(car.marca).to.be.a("string");
+        expect(car.ano).to.be.a("number");
+        expect(car.preco).to.be.a("number");
+      }
     });
   });
 
-  it("Should get a car of the list", () => {
-    const api = new SubjectApi()
-    const requestGET = api.requestHTTP({
-      method: "GET",
-      url: "/2"
-    });
-    return requestGET().then((res) => {
-      for (let i = 0; i < res.body.length; i++) {
-        cy.wrap(res.status).should("eq", 200);
-        cy.wrap(res.body[i].id).should("be.a", "number");
-        cy.wrap(res.body[i].nome).should("be.a", "string");
-        cy.wrap(res.body[i].modelo).should("be.a", "string");
-        cy.wrap(res.body[i].marca).should("be.a", "string");
-        cy.wrap(res.body[i].ano).should("be.a", "number");
-        cy.wrap(res.body[i].preco).should("be.a", "number");
+  it("Should return a car off the list", () => {
+    const api = new CarsApi();
+    return api.getCarById(1).then((getByIdres) => {
+      expect(getByIdres.status).to.eql(200);
+      expect(getByIdres.body).to.be.an("object");
+
+      const expectedStructure = {
+        id: "number",
+        nome: "string",
+        modelo: "string",
+        marca: "string",
+        ano: "number",
+        preco: "number",
+      };
+
+      for (const [field, type] of Object.entries(expectedStructure)) {
+        expect(getByIdres.body[field]).to.be.a(type);
       }
     });
   });

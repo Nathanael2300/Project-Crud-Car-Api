@@ -64,6 +64,9 @@ cypress/
 
 ## 🛠 Tecnologias utilizadas
 
+- **Cors**
+- **Morgan**
+- **Helmet**
 - **Node.js**
 - **Express**
 - **Nodemon**

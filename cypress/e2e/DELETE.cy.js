@@ -1,20 +1,14 @@
 import "cypress-mochawesome-reporter/register";
-const CarsApi = require("../support/api/carsApi");
+const CarsApi = require("../support/api/cars.service");
+import { CarFactory } from "../support/factories/car.factory";
 const { faker } = require("@faker-js/faker");
 
 describe("DELETE /Cars", () => {
-  const Car = {
-    nome: faker.vehicle.vehicle(),
-    marca: faker.vehicle.manufacturer(),
-    modelo: faker.vehicle.model(),
-    ano: faker.number.int({ min: 1990, max: 2025 }),
-    preco: faker.number.int({ min: 20000, max: 300000 }),
-  };
-
   it("Should delete a car off the list", () => {
     const api = new CarsApi();
+    const car = CarFactory.createCar();
 
-    return api.createCar(Car).then((createRes) => {
+    return api.createCar(car).then((createRes) => {
       expect(createRes.status).to.eql(201);
       expect(createRes.body).to.be.an("object");
       const id = createRes.body.id;

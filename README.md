@@ -48,16 +48,27 @@ O objetivo foi aplicar boas práticas e tornar a aplicação mais próxima de um
 src/
  ├── controllers/
  │    └── carController.js
+ │
  ├── models/
  │    └── carModel.js
+ │
  ├── routes/
  │    └── carRoutes.js
+ │
  ├── app.js
  └── server.js
+
 
 cypress/
  ├── e2e/
  │    └── cars.cy.js
+ │
+ ├── support/
+ │    ├── api/
+ │    │    └── cars.service.js
+ │    │
+ │    └── factories/
+ │         └── car.factory.js
 ```
 
 ---

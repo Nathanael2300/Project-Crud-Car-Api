@@ -1,7 +1,6 @@
 import "cypress-mochawesome-reporter/register";
 import CarsApi from "../support/api/cars.service";
 import { CarFactory } from "../support/factories/car.factory";
-import { faker } from "@faker-js/faker";
 
 describe("DELETE /Cars", () => {
   it("Should delete a car off the list", () => {

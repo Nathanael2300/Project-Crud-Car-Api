@@ -1,6 +1,6 @@
 import "cypress-mochawesome-reporter/register";
-const CarsApi = require("../support/api/cars.service");
-const { faker } = require("@faker-js/faker");
+import CarsApi from "../support/api/cars.service";
+import { faker } from "@faker-js/faker";
 import { CarFactory } from "../support/factories/car.factory";
 
 describe("PUT /cars", () => {

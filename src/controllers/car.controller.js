@@ -65,7 +65,10 @@ const createCar = async function (req, res) {
       });
     }
     const car = await carModel.create({ nome, modelo, marca, ano, preco });
-    res.status(201).json(car);
+    res.status(201).json({
+      message: "Carro criado com sucesso",
+      car,
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Erro interno do servidor" });

@@ -1,5 +1,5 @@
 import "cypress-mochawesome-reporter/register";
-const CarsApi = require("../support/api/carsApi");
+import CarsApi from "../support/api/carsApi";
 
 describe("GET /cars", () => {
   it("Should return a list of cars", () => {

@@ -1,20 +1,13 @@
 import "cypress-mochawesome-reporter/register";
-const CarsApi = require("../support/api/carsApi");
-const { faker } = require("@faker-js/faker");
+import CarsApi from "../support/api/cars.service";
+import { CarFactory } from "../support/factories/car.factory";
 
 describe("POST /cars", () => {
-  const Car = {
-    nome: faker.vehicle.vehicle(),
-    marca: faker.vehicle.manufacturer(),
-    modelo: faker.vehicle.model(),
-    ano: faker.number.int({ min: 1990, max: 2025 }),
-    preco: faker.number.int({ min: 20000, max: 300000 }),
-  };
-
   it("Should register a car in the list", () => {
     const api = new CarsApi();
+    const car = CarFactory.createCar();
 
-    return api.createCar(Car).then((createRes) => {
+    return api.createCar(car).then((createRes) => {
       expect(createRes.status).to.eql(201);
       expect(createRes.body).to.be.an("object");
 
@@ -43,11 +36,11 @@ describe("POST /cars", () => {
 
         const expectedValue = {
           id: id,
-          nome: Car.nome,
-          modelo: Car.modelo,
-          marca: Car.marca,
-          ano: Car.ano,
-          preco: Car.preco,
+          nome: car.nome,
+          modelo: car.modelo,
+          marca: car.marca,
+          ano: car.ano,
+          preco: car.preco,
         };
         expect(getByIdres.status).to.eql(200);
         expect(getByIdres.body).to.deep.include(expectedValue);
@@ -60,12 +53,14 @@ describe("POST /cars", () => {
   for (const field of requiredFields) {
     it(`Should not create a car when ${field} is missing`, () => {
       const api = new CarsApi();
+      const car = CarFactory.createCar();
+
       const validCar = {
-        nome: Car.nome,
-        modelo: Car.modelo,
-        marca: Car.marca,
-        ano: Car.ano,
-        preco: Car.preco,
+        nome: car.nome,
+        modelo: car.modelo,
+        marca: car.marca,
+        ano: car.ano,
+        preco: car.preco,
       };
 
       delete validCar[field];

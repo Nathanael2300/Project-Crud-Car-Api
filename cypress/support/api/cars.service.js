@@ -41,4 +41,4 @@ class CarsApi {
   }
 }
 
-module.exports = CarsApi;
+export default CarsApi;

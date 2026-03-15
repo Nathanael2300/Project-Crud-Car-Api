@@ -1,10 +1,7 @@
 class CarsApi {
-  constructor() {
-    this.baseUrl = Cypress.config("baseUrl");
-  }
 
   getAll() {
-    return cy.api("GET", `${this.baseUrl}/cars`);
+    return cy.api("GET", `/cars`);
   }
 
   getCarById(id, options = {}) {
@@ -27,7 +24,7 @@ class CarsApi {
   updateCar(id, data, options = {}) {
     return cy.api({
       method: "PUT",
-      url: `${this.baseUrl}/cars/${id}`,
+      url: `/cars/${id}`,
       body: data,
       failOnStatusCode: options.failOnStatusCode ?? true,
     });
@@ -36,9 +33,9 @@ class CarsApi {
   deleteCar(id) {
     return cy.api({
       method: "DELETE",
-      url: `${this.baseUrl}/cars/${id}`,
+      url: `/cars/${id}`,
     });
   }
 }
 
-export default CarsApi;
+export default new CarsApi();

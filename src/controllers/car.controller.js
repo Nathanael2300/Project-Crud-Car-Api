@@ -17,7 +17,7 @@ const getCarById = async function (req, res) {
     if (!car) {
       return res.status(404).json({ error: "Carro, não encontrado" });
     }
-    res.status(200).json(car);
+    return res.status(200).json(car);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Erro interno do servidor" });

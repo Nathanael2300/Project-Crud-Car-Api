@@ -1,4 +1,4 @@
-# Node-express-cars 🚗
+# Node-express-cars 
 
 API simples criada com Node.js + Express para fins de estudo e prática de testes automatizados.
 
@@ -8,7 +8,7 @@ Este projeto também é utilizado para criar e praticar testes automatizados de 
 
 ---
 
-## 🏗 Arquitetura do Projeto
+##  Arquitetura do Projeto
 
 O projeto foi **reestruturado e refatorado seguindo o padrão MVC (Model-View-Controller)**, com separação clara de responsabilidades:
 
@@ -26,7 +26,7 @@ Essa arquitetura melhora:
 
 ---
 
-## 🔄 Refatoração da Aplicação
+##  Refatoração da Aplicação
 
 Durante o desenvolvimento, o projeto passou por uma **refatoração completa**, incluindo:
 
@@ -42,7 +42,7 @@ O objetivo foi aplicar boas práticas e tornar a aplicação mais próxima de um
 
 ---
 
-## 📁 Estrutura do Projeto
+##  Estrutura do Projeto
 
 ```bash
 src/
@@ -89,13 +89,13 @@ cypress/
 
 ## 🚀 Como rodar o projeto
 
-### 1️⃣ Instale as dependências
+### 1️ Instale as dependências
 
 ```bash
 npm install
 ```
 
-### 2️⃣ Inicie o servidor
+### 2️ Inicie o servidor
 
 ```bash
 npm run dev
@@ -147,7 +147,7 @@ Remove um carro da lista.
 
 ---
 
-## 🧪 Testes automatizados com Cypress
+##  Testes automatizados com Cypress
 
 Este projeto conta com testes de API usando Cypress, incluindo:
 
@@ -171,7 +171,7 @@ it("Should create a car and get it back", () => {
 
 ---
 
-## 🎯 Objetivo do Projeto
+##  Objetivo do Projeto
 
 Este projeto foi criado com foco em:
 
@@ -184,7 +184,7 @@ Este projeto foi criado com foco em:
 
 ---
 
-## 🚀 Próximos passos (Roadmap)
+##  Próximos passos (Roadmap)
 
 - Implementar integração com **MySQL** usando Sequelize ou Knex
 - Criar camada de serviços (Service Layer)
@@ -193,7 +193,7 @@ Este projeto foi criado com foco em:
 
 ---
 
-## 🧑‍💻 Autor
+##  Autor
 
 **Nathanael Henrique Souza Nunes**  
 Foco em QA / SDET  

@@ -1,11 +1,9 @@
 import "cypress-mochawesome-reporter/register";
-import CarsApi from "../support/api/carsApi";
+import CarsApi from "../support/api/cars.service";
 
 describe("GET /cars", () => {
   it("Should return a list of cars", () => {
-    const api = new CarsApi();
-
-    return api.getAll().then((getres) => {
+    return CarsApi.getAll().then((getres) => {
       expect(getres.status).to.eql(200);
       expect(getres.body).to.be.an("array");
       for (const car of getres.body) {
@@ -20,8 +18,7 @@ describe("GET /cars", () => {
   });
 
   it("Should return a car off the list", () => {
-    const api = new CarsApi();
-    return api.getCarById(1).then((getByIdres) => {
+    return CarsApi.getCarById(1).then((getByIdres) => {
       expect(getByIdres.status).to.eql(200);
       expect(getByIdres.body).to.be.an("object");
 

@@ -13,10 +13,9 @@ describe("PUT /cars", () => {
   };
 
   it("Should update some field of the car", () => {
-    const api = new CarsApi();
     const car = CarFactory.createCar();
 
-    return api.createCar(car).then((createRes) => {
+    return CarsApi.createCar(car).then((createRes) => {
       expect(createRes.body).to.have.property(
         "message",
         "Carro criado com sucesso",
@@ -24,7 +23,7 @@ describe("PUT /cars", () => {
       expect(createRes.status).to.eql(201);
       expect(createRes.body.car).to.have.property("id");
       const id = createRes.body.car.id;
-      return api.updateCar(id, CarUpdate).then((UpdateRes) => {
+      return CarsApi.updateCar(id, CarUpdate).then((UpdateRes) => {
         expect(UpdateRes.status).to.be.eql(200);
         expect(UpdateRes.body).to.have.property(
           "message",
@@ -67,22 +66,20 @@ describe("PUT /cars", () => {
   };
   for (const [field, invalidValue] of Object.entries(invalidFields)) {
     it(`Should not update car when ${field} was invalid type`, () => {
-      const api = new CarsApi();
-      return api.createCar(CarUpdate).then((createRes) => {
+      return CarsApi.createCar(CarUpdate).then((createRes) => {
         expect(createRes.status).to.eql(201);
 
         const id = createRes.body.id;
-        return api
-          .updateCar(
-            id,
-            {
-              [field]: invalidValue,
-            },
-            { failOnStatusCode: false },
-          )
-          .then((updateRes) => {
-            expect(updateRes.status).to.eql(400);
-          });
+        return CarsApi.updateCar(
+          id,
+          {
+            [field]: invalidValue,
+          },
+          { failOnStatusCode: false },
+        ).then((updateRes) => {
+          expect(updateRes.status).to.eql(400);
+          expect(updateRes.body).to.have.property("error", "ID inválido.");
+        });
       });
     });
   }

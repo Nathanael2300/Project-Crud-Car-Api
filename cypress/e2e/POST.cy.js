@@ -4,29 +4,30 @@ import { CarFactory } from "../support/factories/car.factory";
 
 describe("POST /cars", () => {
   it("Should register a car in the list", () => {
-    const api = new CarsApi();
     const car = CarFactory.createCar();
 
-    return api.createCar(car).then((createRes) => {
+    return CarsApi.createCar(car).then((createRes) => {
       expect(createRes.status).to.eql(201);
       expect(createRes.body).to.be.an("object");
 
       const expectedStructure = {
-        id: "number",
         nome: "string",
         modelo: "string",
         marca: "string",
         ano: "number",
         preco: "number",
       };
-
+      expect(createRes.body).to.have.property(
+        "message",
+        "Carro criado com sucesso",
+      );
       for (const [field, type] of Object.entries(expectedStructure)) {
-        expect(createRes.body).to.have.property(field);
-        expect(createRes.body[field]).to.be.a(type);
+        expect(createRes.body.car).to.have.property(field);
+        expect(createRes.body.car[field]).to.be.a(type);
       }
 
-      const id = createRes.body.id;
-      return api.getCarById(id).then((getByIdres) => {
+      const id = createRes.body.car.id;
+      return CarsApi.getCarById(id).then((getByIdres) => {
         expect(getByIdres.status).to.eql(200);
         expect(getByIdres.body).to.be.an("object");
         for (const [field, type] of Object.entries(expectedStructure)) {
@@ -52,7 +53,6 @@ describe("POST /cars", () => {
 
   for (const field of requiredFields) {
     it(`Should not create a car when ${field} is missing`, () => {
-      const api = new CarsApi();
       const car = CarFactory.createCar();
 
       const validCar = {
@@ -65,15 +65,15 @@ describe("POST /cars", () => {
 
       delete validCar[field];
 
-      return api
-        .createCar(validCar, { failOnStatusCode: false })
-        .then((createRes) => {
+      return CarsApi.createCar(validCar, { failOnStatusCode: false }).then(
+        (createRes) => {
           expect(createRes.status).to.be.eql(400);
           expect(createRes.body).to.have.property(
             "error",
             "Campos nome, modelo, marca, ano e preco são obrigatórios.",
           );
-        });
+        },
+      );
     });
   }
 });
